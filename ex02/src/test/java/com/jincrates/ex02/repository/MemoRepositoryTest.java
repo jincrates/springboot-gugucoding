@@ -110,7 +110,6 @@ public class MemoRepositoryTest {
     @Test
     public void testSort() {
 
-
         Sort sort1 = Sort.by("mno").descending();
         Sort sort2 = Sort.by("memoText").ascending();
         Sort sortAll = sort1.and(sort2); //and를 이용한 연결
@@ -119,9 +118,8 @@ public class MemoRepositoryTest {
 
         Page<Memo> result = memoRepository.findAll(pageable);
 
-        result.get().forEach(memo -> {
-            System.out.println(memo);
-        });
+        //result.get().forEach(memo -> System.out.println(memo));
+        result.get().forEach(System.out::println);
     }
 
     @Test
