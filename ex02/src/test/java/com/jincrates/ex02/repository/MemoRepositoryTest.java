@@ -8,8 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -76,7 +78,7 @@ public class MemoRepositoryTest {
     @Test
     public void testDelete() {
 
-        Long mno = 99L;
+        Long mno = 100L;
 
         memoRepository.deleteById(mno);
     }
@@ -120,5 +122,65 @@ public class MemoRepositoryTest {
         result.get().forEach(memo -> {
             System.out.println(memo);
         });
+    }
+
+    @Test
+    public void testQueryMethods() {
+
+        List<Memo> list = memoRepository.findByMnoBetweenOrderByMnoDesc(70L, 80L);
+
+        for(Memo memo : list) {
+            System.out.println(memo);
+        }
+    }
+
+    @Test
+    public void testQueryMethodWithPagable() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("mno").descending());
+
+        Page<Memo> result = memoRepository.findByMnoBetween(10L, 50L, pageable);
+
+        result.get().forEach(memo -> System.out.println(memo));
+    }
+
+    @Commit
+    @Transactional
+    @Test
+    public void testDeleteQueryMethods() {
+
+        //실무에서는 많이 사용하지 않는다. 한 번에 삭제가 이루어지는 것이 아니라 엔티티 객체를 하나씩 삭제하기 때문이다.
+        memoRepository.deleteMemoByMnoLessThan(10L);
+    }
+
+    @Test
+    public void testQueryAnnotaion() {
+
+        List<Memo> list = memoRepository.getListDesc();
+
+        for(Memo memo : list) {
+            System.out.println(memo);
+        }
+    }
+
+    @Test
+    public void testQueryAnnotaion2() {
+
+        Long mno = 99L;
+        String text = "Hello Spring Boot!";
+
+        int result = memoRepository.updateMemoText(mno, text);
+
+        System.out.println("result : " + result);
+
+        //데이터 조회
+        Optional<Memo> findMemo = memoRepository.findById(mno);
+
+        System.out.println("=============================================================");
+
+        if(findMemo.isPresent()) {
+            Memo memo = findMemo.get();
+            System.out.println(memo);
+        }
     }
 }
