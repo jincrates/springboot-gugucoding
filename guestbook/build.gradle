@@ -27,7 +27,17 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation ('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time'
+
+	//devtools 추가: [Build] - [Recompile]
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	//SQL log에 파라미터 추가해주는 외부 라이브러리
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.2'
 }
 
 test {

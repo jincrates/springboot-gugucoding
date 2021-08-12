@@ -15,6 +15,24 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ex03" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ex03" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/guestbook" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/guestbook" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>
