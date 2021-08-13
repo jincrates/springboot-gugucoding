@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'com.jincrates'
@@ -32,14 +33,38 @@ dependencies {
 	}
 
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 
 	//devtools 추가: [Build] - [Recompile]
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	//SQL log에 파라미터 추가해주는 외부 라이브러리
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.2'
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
+
+	//querydsl 의존성 추가
+	implementation 'com.querydsl:querydsl-jpa'
 }
 
 test {
 	useJUnitPlatform()
 }
+
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+//querydsl 추가 끝
