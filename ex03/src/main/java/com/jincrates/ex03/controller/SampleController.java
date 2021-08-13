@@ -73,7 +73,7 @@ public class SampleController {
         log.info("ex03");
     }
 
-    @GetMapping({"/exLayout1", "/exLayout2"})
+    @GetMapping({"/exLayout1", "/exLayout2", "/exTemplate", "/exSidebar"})
     public void exLayout() {
 
         log.info("exLayout......................");
