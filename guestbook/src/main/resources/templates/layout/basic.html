@@ -12,6 +12,10 @@
 
         <link th:href="@{/css/style.css}" rel="stylesheet">
 
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/popper.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
     </head>
     <body>
         <div class="wrapper d-flex align-items-stretch">
@@ -85,18 +89,12 @@
 
         <!-- Page Content  -->
         <div id="content" class="container-fluid p-4 p-md-5 pt-5">
-
             <th:block th:replace="${content}"></th:block>
         </div>
     </div>
-
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/popper.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/main.js}"></script>
-
     </body>
 
 </th:block>
+
 </html>
 
