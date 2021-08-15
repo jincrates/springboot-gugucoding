@@ -25,7 +25,7 @@ public class GuestbookServiceImpl implements GuestbookService {
     @Override
     public Long register(GuestbookDTO dto) {
 
-        log.info("DTO..........................");
+        log.info("DTO REGISTER..........................");
         log.info(dto);
 
         Guestbook entity = dtoToEntity(dto);
@@ -61,9 +61,12 @@ public class GuestbookServiceImpl implements GuestbookService {
     @Override
     public void modify(GuestbookDTO dto) {
 
+        log.info("DTO MODIFY..........................");
+        log.info(dto);
+
         //업데이트 하는 항목은 '제목', '내용'
         Optional<Guestbook> result = repository.findById(dto.getGno());
-        log.info(result + " =========================================");
+
         if(result.isPresent()) {
 
             Guestbook entity = result.get();
@@ -73,7 +76,6 @@ public class GuestbookServiceImpl implements GuestbookService {
 
             repository.save(entity);
         }
-
     }
 
     @Override
