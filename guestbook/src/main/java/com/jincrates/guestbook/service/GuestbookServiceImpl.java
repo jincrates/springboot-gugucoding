@@ -118,10 +118,10 @@ public class GuestbookServiceImpl implements GuestbookService {
             conditionBuilder.or(qGuestbook.title.contains(keyword));
         }
         if(type.contains("c")) {
-            conditionBuilder.or(qGuestbook.title.contains(keyword));
+            conditionBuilder.or(qGuestbook.content.contains(keyword));
         }
         if(type.contains("w")) {
-            conditionBuilder.or(qGuestbook.title.contains(keyword));
+            conditionBuilder.or(qGuestbook.writer.contains(keyword));
         }
 
         //모든 조건 통합
