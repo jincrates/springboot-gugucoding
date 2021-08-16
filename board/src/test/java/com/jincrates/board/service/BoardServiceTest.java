@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -45,7 +47,7 @@ public class BoardServiceTest {
     @Test
     public void testGet() {
 
-        Long bno = 100L;
+        Long bno = 2L;
 
         BoardDTO boardDTO = boardService.get(bno);
 
@@ -59,6 +61,19 @@ public class BoardServiceTest {
         Long bno = 1L;
 
         boardService.removeWithReplies(bno);
+
+    }
+
+    @Test
+    public void testModify() {
+
+        BoardDTO boardDTO = BoardDTO.builder()
+                .bno(2L)
+                .title("Changed Title")
+                .content("Changed Content")
+                .build();
+
+        boardService.modify(boardDTO);
 
     }
 }
