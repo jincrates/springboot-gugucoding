@@ -52,4 +52,5 @@ public class ReplyRepositoryTest {
         System.out.println(reply.getBoard());
 
     }
+
 }
