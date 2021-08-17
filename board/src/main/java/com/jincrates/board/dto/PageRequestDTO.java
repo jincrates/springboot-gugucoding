@@ -24,7 +24,7 @@ public class PageRequestDTO {
 
     public Pageable getPageable(Sort sort) {
 
-        //JPA를 이요하는 경우에는 페이지 번호가 0부터 시작한다는 점을 감안해서 1페이지의 경우 0이 될 수 있도록 -1 처리
+        //JPA를 이용하는 경우에는 페이지 번호가 0부터 시작한다는 점을 감안해서 1페이지의 경우 0이 될 수 있도록 -1 처리
         return PageRequest.of(page - 1, size, sort);
     }
 }
