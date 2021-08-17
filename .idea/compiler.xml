@@ -11,5 +11,8 @@
         <module name="board.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="board.querydsl" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
