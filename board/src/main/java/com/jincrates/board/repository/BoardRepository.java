@@ -1,6 +1,7 @@
 package com.jincrates.board.repository;
 
 import com.jincrates.board.entity.Board;
+import com.jincrates.board.repository.search.SearchBoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoardRepository {
 
     //한개의 로우(Objec) 내에 Object[ ]로 나옴
     @Query("SELECT b, w FROM Board b LEFT OUTER JOIN b.writer w WHERE b.bno = :bno")

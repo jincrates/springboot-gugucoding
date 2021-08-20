@@ -38,9 +38,7 @@ public class BoardRepositoryTest {
                     .build();
 
             boardRepository.save(board);
-
         });
-
     }
 
     @Transactional
@@ -53,7 +51,6 @@ public class BoardRepositoryTest {
 
         System.out.println(board);
         System.out.println(board.getWriter());
-
     }
 
     @Test
@@ -65,7 +62,6 @@ public class BoardRepositoryTest {
 
         System.out.println("----------------------------------------------------------------");
         System.out.println(Arrays.toString(arr));
-
     }
 
     @Test
@@ -76,7 +72,6 @@ public class BoardRepositoryTest {
         for(Object[] arr : result) {
             System.out.println(Arrays.toString(arr));
         }
-
     }
 
     @Test
@@ -92,7 +87,6 @@ public class BoardRepositoryTest {
 
             System.out.println(Arrays.toString(arr));
         });
-
     }
 
     @Test
@@ -103,6 +97,23 @@ public class BoardRepositoryTest {
         Object[] arr = (Object[]) result;
 
         System.out.println(Arrays.toString(arr));
-
     }
+
+    @Test
+    public void testSearch1() {
+
+        boardRepository.search1();
+    }
+
+    @Test
+    public void testSearchPage() {
+
+        Pageable pageable =
+                PageRequest.of(0, 10,
+                        Sort.by("bno").descending()
+                                .and(Sort.by("title").ascending()));
+
+        Page<Object[]> result = boardRepository.searchPage("t", "1", pageable);
+    }
+
 }
