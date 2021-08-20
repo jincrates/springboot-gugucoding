@@ -21,7 +21,7 @@ public class ReplyRepositoryTest {
     @Test
     public void insertReply() {
 
-        IntStream.rangeClosed(1, 300).forEach(i -> {
+        IntStream.rangeClosed(201, 700).forEach(i -> {
 
             //1부터 100까지 임의의 번호
             long bno = (long) (Math.random() * 100) + 1;

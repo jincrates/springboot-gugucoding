@@ -30,7 +30,6 @@ public interface BoardService {
                 .build();
 
         return board;
-
     }
 
     //BoardService 인터페이스에 추가하는 entityToDTO()
@@ -48,6 +47,5 @@ public interface BoardService {
                 .build();
 
         return boardDTO;
-
     }
 }

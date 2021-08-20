@@ -24,7 +24,7 @@ public class BoardServiceTest {
         BoardDTO dto = BoardDTO.builder()
                 .title("Test...")
                 .content("Test...")
-                .writerEmail("user17@cogito.com")  //현재 데이터베이스에 존재하는 회원 이메일
+                .writerEmail("user19@cogito.com")  //현재 데이터베이스에 존재하는 회원 이메일
                 .build();
 
         Long bno = boardService.register(dto);
