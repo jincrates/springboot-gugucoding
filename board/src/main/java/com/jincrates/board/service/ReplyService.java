@@ -30,4 +30,18 @@ public interface ReplyService {
 
         return reply;
     }
+
+    //Reply 객체를 ReplyDTO로 반환 Board 객체가 필요하지 않으므로 게시물 번호만
+    default ReplyDTO entityToDTO(Reply reply) {
+
+        ReplyDTO dto = ReplyDTO.builder()
+                .rno(reply.getRno())
+                .text(reply.getText())
+                .replyer(reply.getReplyer())
+                .regDate(reply.getRegDate())
+                .modDate(reply.getModDate())
+                .build();
+
+        return dto;
+    }
 }
