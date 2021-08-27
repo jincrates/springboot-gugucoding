@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/replies/")
+@RequestMapping("/replies")
 @Log4j2
 @RequiredArgsConstructor
 public class ReplyController {
@@ -29,5 +29,4 @@ public class ReplyController {
 
         return new ResponseEntity<>(replyService.getList(bno), HttpStatus.OK);
     }
-
 }
