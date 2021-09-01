@@ -1,8 +1,8 @@
-package com.jincrates.security;
+package com.jincrates.club;
 
-import com.jincrates.security.entity.ClubMember;
-import com.jincrates.security.entity.ClubMemberRole;
-import com.jincrates.security.repository.ClubMemberRepository;
+import com.jincrates.club.entity.ClubMember;
+import com.jincrates.club.entity.ClubMemberRole;
+import com.jincrates.club.repository.ClubMemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,8 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ClubMemberTests {

@@ -1,6 +1,6 @@
-package com.jincrates.security.repository;
+package com.jincrates.club.repository;
 
-import com.jincrates.security.entity.ClubMember;
+import com.jincrates.club.entity.ClubMember;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

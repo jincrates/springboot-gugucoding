@@ -1,4 +1,4 @@
-package com.jincrates.security.entity;
+package com.jincrates.club.entity;
 
 import lombok.*;
 
