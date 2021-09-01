@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +31,7 @@ public class ClubMemberTests {
 
         IntStream.rangeClosed(1, 100).forEach(i -> {
                 ClubMember clubMember = ClubMember.builder()
-                    .email("user" + i + "jincrates.com")
+                    .email("user" + i + "@jincrates.com")
                     .name("사용자" + i)
                     .fromSocial(false)
                     .password(passwordEncoder.encode("1111"))
@@ -49,5 +50,14 @@ public class ClubMemberTests {
 
                 repository.save(clubMember);
         });
+    }
+
+    @Test
+    public void testRead() {
+        Optional<ClubMember> result = repository.findByEmail("user99@jincrates.com", false);
+
+        ClubMember clubMember = result.get();
+
+        System.out.println(clubMember);
     }
 }
