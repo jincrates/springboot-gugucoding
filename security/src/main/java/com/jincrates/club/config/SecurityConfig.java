@@ -31,11 +31,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //사용자 계정은 user1
-        auth.inMemoryAuthentication().withUser("user1")
-                .password("$2a$10$OzFhtpo9AslJVsliNXaX1OKy/Lgk3I0eurnB1guyP9mtMuhOlPBta")  //1111 패스워드 인코딩 결과
-                .roles("USER");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        //사용자 계정은 user1
+//        auth.inMemoryAuthentication().withUser("user1")
+//                .password("$2a$10$OzFhtpo9AslJVsliNXaX1OKy/Lgk3I0eurnB1guyP9mtMuhOlPBta")  //1111 패스워드 인코딩 결과
+//                .roles("USER");
+//    }
 }
