@@ -1,5 +1,6 @@
 package com.jincrates.club.config;
 
+import com.jincrates.club.security.filter.ApiCheckFilter;
 import com.jincrates.club.security.handler.ClubLoginSuccessHandler;
 import com.jincrates.club.security.service.ClubUserDetailsService;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @Log4j2
@@ -38,10 +40,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout();
         http.oauth2Login().successHandler(successHandler());
         http.rememberMe().tokenValiditySeconds(60*60*24*7).userDetailsService(userDetailsService); //7dayss
+
+        //필터의 위치 조절
+        http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
     public ClubLoginSuccessHandler successHandler() {
         return new ClubLoginSuccessHandler(passwordEncoder());
+    }
+
+    @Bean
+    public ApiCheckFilter apiCheckFilter() {
+
+        return new ApiCheckFilter("/notes/**/*");
     }
 }
