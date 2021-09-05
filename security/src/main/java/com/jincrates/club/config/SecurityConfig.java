@@ -1,6 +1,7 @@
 package com.jincrates.club.config;
 
 import com.jincrates.club.security.filter.ApiCheckFilter;
+import com.jincrates.club.security.filter.ApiLoginFilter;
 import com.jincrates.club.security.handler.ClubLoginSuccessHandler;
 import com.jincrates.club.security.service.ClubUserDetailsService;
 import lombok.extern.log4j.Log4j2;
@@ -43,11 +44,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //필터의 위치 조절
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(apiLoginFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
     public ClubLoginSuccessHandler successHandler() {
         return new ClubLoginSuccessHandler(passwordEncoder());
+    }
+
+    @Bean
+    public ApiLoginFilter apiLoginFilter() throws Exception {
+
+        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
+        apiLoginFilter.setAuthenticationManager(authenticationManager());
+
+        return apiLoginFilter;
     }
 
     @Bean
