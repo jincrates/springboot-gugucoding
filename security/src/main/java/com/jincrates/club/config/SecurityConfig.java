@@ -1,9 +1,9 @@
 package com.jincrates.club.config;
 
+import com.jincrates.club.security.handler.ClubLoginSuccessHandler;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,14 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin();  //권한 인증에 문제시 로그인 화면 이동
         http.csrf().disable();  // csrf 토큰 비활성화
 
-        http.oauth2Login();
+        http.oauth2Login().successHandler(successHandler());
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        //사용자 계정은 user1
-//        auth.inMemoryAuthentication().withUser("user1")
-//                .password("$2a$10$OzFhtpo9AslJVsliNXaX1OKy/Lgk3I0eurnB1guyP9mtMuhOlPBta")  //1111 패스워드 인코딩 결과
-//                .roles("USER");
-//    }
+    @Bean
+    public ClubLoginSuccessHandler successHandler() {
+        return new ClubLoginSuccessHandler(passwordEncoder());
+    }
 }
