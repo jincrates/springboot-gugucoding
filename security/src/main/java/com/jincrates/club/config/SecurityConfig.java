@@ -2,6 +2,7 @@ package com.jincrates.club.config;
 
 import com.jincrates.club.security.filter.ApiCheckFilter;
 import com.jincrates.club.security.filter.ApiLoginFilter;
+import com.jincrates.club.security.handler.ApiLoginFailHandler;
 import com.jincrates.club.security.handler.ClubLoginSuccessHandler;
 import com.jincrates.club.security.service.ClubUserDetailsService;
 import lombok.extern.log4j.Log4j2;
@@ -57,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
         apiLoginFilter.setAuthenticationManager(authenticationManager());
+
+        apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
 
         return apiLoginFilter;
     }
