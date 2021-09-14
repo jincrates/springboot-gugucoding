@@ -1,4 +1,4 @@
-package com.jincrates.club;
+package com.jincrates.club.security;
 
 import com.jincrates.club.entity.ClubMember;
 import com.jincrates.club.entity.ClubMemberRole;

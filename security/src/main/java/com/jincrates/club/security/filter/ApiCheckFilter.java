@@ -1,5 +1,6 @@
 package com.jincrates.club.security.filter;
 
+import com.jincrates.club.security.util.JWTUtil;
 import lombok.extern.log4j.Log4j2;
 import net.minidev.json.JSONObject;
 import org.springframework.util.AntPathMatcher;
@@ -13,44 +14,42 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 @Log4j2
 public class ApiCheckFilter extends OncePerRequestFilter {
 
     private AntPathMatcher antPathMatcher;
     private String pattern;
+    private JWTUtil jwtUtil;
 
-
-    public ApiCheckFilter(String pattern) {
+    public ApiCheckFilter(String pattern, JWTUtil jwtUtil){
         this.antPathMatcher = new AntPathMatcher();
         this.pattern = pattern;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        log.info("REQUEST URI: " + request.getRequestURI());
+        log.info("REQUESTURI: " + request.getRequestURI());
 
         log.info(antPathMatcher.match(pattern, request.getRequestURI()));
 
         if(antPathMatcher.match(pattern, request.getRequestURI())) {
-            log.info("ApiCheckFilter.............................................................");
-            log.info("ApiCheckFilter.............................................................");
-            log.info("ApiCheckFilter.............................................................");
+
+            log.info("ApiCheckFilter.................................................");
+            log.info("ApiCheckFilter.................................................");
+            log.info("ApiCheckFilter.................................................");
 
             boolean checkHeader = checkAuthHeader(request);
 
-            if (checkHeader) {
+            if(checkHeader){
                 filterChain.doFilter(request, response);
-
                 return;
-            } else {
-                //헤더 검증 실패 처리
+            }else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-
-                //json 리턴 및 한글깨짐 수정
-                response.setContentType("appication/json;charset=utf-8");
+                // json 리턴
+                response.setContentType("application/json;charset=utf-8");
                 JSONObject json = new JSONObject();
                 String message = "FAIL CHECK API TOKEN";
                 json.put("code", "403");
@@ -58,11 +57,8 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
                 PrintWriter out = response.getWriter();
                 out.print(json);
-
                 return;
             }
-
-            //return;
         }
 
         filterChain.doFilter(request, response);
@@ -74,11 +70,15 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        if(StringUtils.hasText(authHeader)) {
-            log.info("Authorization exist : " + authHeader);
+        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
+            log.info("Authorization exist: " + authHeader);
 
-            if(authHeader.equals("12345678")) {
-                checkResult = true;
+            try {
+                String email = jwtUtil.validateAndExtract(authHeader.substring(7));
+                log.info("validate result: " + email);
+                checkResult =  email.length() > 0;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

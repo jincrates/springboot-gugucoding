@@ -5,6 +5,7 @@ import com.jincrates.club.security.filter.ApiLoginFilter;
 import com.jincrates.club.security.handler.ApiLoginFailHandler;
 import com.jincrates.club.security.handler.ClubLoginSuccessHandler;
 import com.jincrates.club.security.service.ClubUserDetailsService;
+import com.jincrates.club.security.util.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public ApiLoginFilter apiLoginFilter() throws Exception {
 
-        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
+        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login", jwtUtil());
         apiLoginFilter.setAuthenticationManager(authenticationManager());
 
         apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
@@ -67,6 +68,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public ApiCheckFilter apiCheckFilter() {
 
-        return new ApiCheckFilter("/notes/**/*");
+        return new ApiCheckFilter("/notes/**/*", jwtUtil());
+    }
+
+    @Bean
+    public JWTUtil jwtUtil() {
+        return new JWTUtil();
     }
 }

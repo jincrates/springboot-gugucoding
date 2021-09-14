@@ -1,4 +1,4 @@
-package com.jincrates.club;
+package com.jincrates.club.security;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
